@@ -2,7 +2,7 @@
 
 const int NUMBEROFOPERATIONS = 100000000;
 
-int f(int arg, int b, int c) {
+long f(long arg, int b, int c) {
     if (arg == 0) return 0;
     int a = 0;
     for (int i = 1; i < NUMBEROFOPERATIONS; i++) {
@@ -13,6 +13,6 @@ int f(int arg, int b, int c) {
 
 int main()
 {
-
-    std::cout << "Hello World!\n";
+    
+    std::cout << f(11, 3, 6);
 }

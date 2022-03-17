@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 
 namespace OS_Hub
 {
+    enum OS_Language { CPlusPlus = 1, Java, Python, Assembler }
     class Program
     {
         private static int b;
         private static int c;
         private static int i_max;
+        private static string path;
         private static int cur_position = 1;
         private static string[] OS_Results = { "undef", "undef" , "undef" , "undef" };
         private static string[] OS_Time = { "undef", "undef", "undef", "undef" };
@@ -35,8 +39,38 @@ namespace OS_Hub
                 i_max = Int32.Parse(Console.ReadLine());
             }
             catch { goto _OS_imax; }
+            Console.Write(" Введите путь к папке с решением > ");
+            path = Console.ReadLine();
         }
         
+        private static void OS_Calculate(OS_Language lang)
+        {
+            Console.Write("\n\nНачинается выполнение программы на языке ");
+            DirectoryInfo solFolder = new DirectoryInfo(path);
+            FileInfo codeFile;
+            switch (lang)
+            {
+                case OS_Language.CPlusPlus:
+                    Console.WriteLine("C++");
+                    Console.WriteLine(solFolder.FullName + @"\Debug\OS_Cpp.exe");
+                    codeFile = new FileInfo(solFolder.FullName + @"\Debug\OS_Cpp.exe");
+                    if (codeFile.Exists)
+                        Process.Start(codeFile.FullName);
+                    break;
+                case OS_Language.Java:
+                    Console.WriteLine("Java");
+                    break;
+                case OS_Language.Python:
+                    Console.WriteLine("Python");
+                    break;
+                case OS_Language.Assembler:
+                    Console.WriteLine("Assembler");
+                    break;
+                default:
+                    break;
+            }
+            Console.ReadKey();
+        }
         private static void OS_PrintCursor(int p)
         {
             if (p == cur_position) Console.Write(">");
@@ -76,6 +110,9 @@ namespace OS_Hub
                         break;
                     case ConsoleKey.UpArrow:
                         cur_position--;
+                        break;
+                    case ConsoleKey.Enter:
+                        OS_Calculate((OS_Language)cur_position);
                         break;
                 }
             }
