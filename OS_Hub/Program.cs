@@ -39,8 +39,18 @@ namespace OS_Hub
                 i_max = Int32.Parse(Console.ReadLine());
             }
             catch { goto _OS_imax; }
-            Console.Write(" Введите путь к папке с решением > ");
-            path = Console.ReadLine();
+            path = Directory.GetCurrentDirectory();
+            DirectoryInfo info = new(path);
+            while (path != "" && info.Name != "OS_Practice_4" )
+            {
+                info = info.Parent;
+                path = info.FullName;
+            }
+            //FileInfo info = new(path + @"\OS_Info.txt");
+            //info.CreateText();
+            StreamWriter writer = new(path + @"\OS_Hub\bin\Debug\net5.0\OS_Info.txt");
+            writer.WriteLine(b.ToString() + "," + c.ToString() + "," + i_max.ToString());
+            writer.Close();
         }
         
         private static void OS_Calculate(OS_Language lang)
@@ -71,11 +81,13 @@ namespace OS_Hub
             }
             Console.ReadKey();
         }
+        
         private static void OS_PrintCursor(int p)
         {
             if (p == cur_position) Console.Write(">");
             else Console.Write(" ");
         }
+        
         private static void OS_PrintTable()
         {
             while (true) {
