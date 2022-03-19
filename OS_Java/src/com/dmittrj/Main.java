@@ -4,6 +4,7 @@ package com.dmittrj;
 import javax.swing.filechooser.FileSystemView;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static java.lang.Integer.parseInt;
@@ -21,6 +22,11 @@ public class Main {
         //nFile.write();
         //nFile.read();
         //nFile.delete();
+    }
+
+    static void WriteFile(String res, String time) throws IOException {
+        OS_File nFile = new OS_File("OS_JavaResult.txt");
+        nFile.create(res, time);
     }
 
     private static Argums ParseFile(String info) {
@@ -50,8 +56,16 @@ public class Main {
         //System.out.println(f(10, 5, 7));
         ReadFile();
         Argums v = ParseFile(info);
+        System.out.println("Начинается подсчёт...");
+        long start_time = System.currentTimeMillis();
         long result = f(v.i_max, v.b, v.c);
-        System.out.println(result);
+        long finish_time = System.currentTimeMillis();
+        long ltime = (finish_time - start_time);
+        double time = (double)ltime / 1000;
+        System.out.println("Результат работы программы на Java:");
+        System.out.println("  - Ответ: " + result);
+        System.out.println("  - Время: " + time + " секунд");
+        WriteFile(Long.toString(result), Double.toString(time));
     }
 
 }
