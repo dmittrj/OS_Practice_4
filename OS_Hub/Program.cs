@@ -66,20 +66,19 @@ namespace OS_Hub
         
         private static void OS_Calculate(OS_Language lang)
         {
-            Console.Write("\n\nНачинается выполнение программы на языке ");
             DirectoryInfo solFolder = new DirectoryInfo(path);
             FileInfo codeFile;
             switch (lang)
             {
                 case OS_Language.CPlusPlus:
-                    Console.WriteLine("C++");
+                    Console.WriteLine("\n\nНачинается выполнение программы на языке C++");
                     Console.WriteLine(solFolder.FullName + @"\Debug\OS_Cpp.exe");
                     codeFile = new FileInfo(solFolder.FullName + @"\Debug\OS_Cpp.exe");
                     if (codeFile.Exists)
                         Process.Start(codeFile.FullName);
                     break;
                 case OS_Language.Java:
-                    Console.WriteLine("Java");
+                    Console.WriteLine("\n\nЗапустите программу на Java в вашем IDE.");
                     break;
                 case OS_Language.Python:
                     Console.WriteLine("Python");

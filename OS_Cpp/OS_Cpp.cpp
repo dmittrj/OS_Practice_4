@@ -45,8 +45,6 @@ void parsefile(char p[], int& b, int& c, int& i_max) {
 
 int main()
 {
-    //SetConsoleCP(1251);
-    //SetConsoleOutputCP(1251);
     setlocale(LC_ALL, "Russian");
     float time;
     std::ifstream info;
