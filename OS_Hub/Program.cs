@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace OS_Hub
 {
@@ -62,11 +63,20 @@ namespace OS_Hub
             StreamWriter writer = new(path + @"\OS_Hub\bin\Debug\net5.0\OS_Info.txt");
             writer.WriteLine(b.ToString() + "," + c.ToString() + "," + i_max.ToString());
             writer.Close();
+            writer = new(path + @"\OS_Java\resources\OS_Info.txt");
+            writer.WriteLine(b.ToString() + "," + c.ToString() + "," + i_max.ToString());
+            writer.Close();
+            FileInfo fileToDelete = new FileInfo(path + @"\OS_Java\resources\OS_JavaResult.txt");
+            if (fileToDelete.Exists)
+                fileToDelete.Delete();
+            fileToDelete = new FileInfo(path + @"\OS_Hub\bin\Debug\net5.0\OS_CppResult.txt");
+            if (fileToDelete.Exists)
+                fileToDelete.Delete();
         }
         
         private static void OS_Calculate(OS_Language lang)
         {
-            DirectoryInfo solFolder = new DirectoryInfo(path);
+            DirectoryInfo solFolder = new(path);
             FileInfo codeFile;
             switch (lang)
             {
@@ -79,6 +89,13 @@ namespace OS_Hub
                     break;
                 case OS_Language.Java:
                     Console.WriteLine("\n\nЗапустите программу на Java в вашем IDE.");
+                    FileInfo javafile = new(path + @"\OS_Java\resources\OS_JavaResult.txt");
+                    while (!javafile.Exists)
+                    {
+                        javafile = new(path + @"\OS_Java\resources\OS_JavaResult.txt");
+                    }
+                    Console.WriteLine("\n\nПолучены данные от программы на Java");
+                    Console.ReadKey();
                     break;
                 case OS_Language.Python:
                     Console.WriteLine("Python");
@@ -106,6 +123,11 @@ namespace OS_Hub
                 {
                     OS_ParseFile(checks, OS_Language.CPlusPlus);
                 }
+                checks = new(path + @"\OS_Java\resources\OS_JavaResult.txt");
+                if (checks.Exists)
+                {
+                    OS_ParseFile(checks, OS_Language.Java);
+                }
                 Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine("  Язык        Результат     Время работы");
@@ -118,8 +140,9 @@ namespace OS_Hub
                 OS_PrintCursor(2);
                 Console.Write(" Java        ");
                 Console.Write(OS_Results[1]);
-                Console.Write("         ");
-                Console.WriteLine("undef");
+                for (int i = 0; i < 14 - OS_Results[0].Length; i++)
+                    Console.Write(" ");
+                Console.WriteLine(OS_Time[1] + " сек.");
                 OS_PrintCursor(3);
                 Console.Write(" Python      ");
                 Console.Write(OS_Results[2]);
