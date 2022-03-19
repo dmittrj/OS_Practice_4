@@ -5,11 +5,11 @@
 
 const int NUMBEROFOPERATIONS = 100000000;
 
-long f(long arg, int b, int c) {
+long long f(long arg, int b, int c) {
     if (arg == 0) return 0;
-    int a = 0;
+    long long a = 0;
     for (int i = 1; i < NUMBEROFOPERATIONS; i++) {
-        a += 2 * b + c - i;
+        a += (long long)2 * (long long)b + (long long)c - (long long)arg;
     }
     return f(arg - 1, b, c) + a;
 }
@@ -57,9 +57,10 @@ int main()
     int c;
     int i_max;
     parsefile(p, b, c, i_max);
+    std::cout << b << c << i_max << std::endl;
     std::cout << "Начинается подсчёт..." << std::endl;
     clock_t ts = clock();
-    long result = f(i_max, b, c);
+    long long result = f(i_max, b, c);
     time = ((float)(clock() - ts)) / CLOCKS_PER_SEC;
     std::cout << "Результат работы программы на C++:" << std::endl;
     std::cout << "  - Ответ: " << result << std::endl;

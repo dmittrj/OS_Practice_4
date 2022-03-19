@@ -6,11 +6,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 
+import static java.lang.Integer.parseInt;
+
 public class Main {
-    
+
     public static final String PATH = "./resources/";
     private static final int NUMBEROFOPERATIONS = 100000000;
     static String info;
+
 
     static void ReadFile() throws ParserConfigurationException, IOException {
         OS_File nFile = new OS_File("OS_Info.txt");
@@ -20,34 +23,25 @@ public class Main {
         //nFile.delete();
     }
 
-    private static void ParseFile(String info) {
-
-    }
-
-
-    static void getInfoAboutRoots() { // * Функция вывода информации о логических дисках
-        String result = "";
-        System.out.println("1. Информация о логических дисках устройства:");
-        var i = 0;
-        for (File f : File.listRoots()) {
-            i++;
-            result += i + ": ";
-            result += FileSystemView.getFileSystemView().getSystemDisplayName(f); // * Название диска
-            result += " | ";
-            result += FileSystemView.getFileSystemView().getSystemTypeDescription(f); // * Тип диска
-            result += " | ";
-            result += String.format("%.2f", (f.getTotalSpace() / (Math.pow(1024, 3)))) + " GB"; // * Объем диска
-            result += "\n";
-        }
-
-        System.out.println(result);
+    private static Argums ParseFile(String info) {
+        String[] values = info.split(",");
+        //System.out.println("Parsed:" + values[0] + "<<");
+        int b = parseInt(values[0]);
+        //System.out.println("Got:" + b + "<<");
+        //System.out.println("Parsed:" + values[1] + "<<");
+        int c = parseInt(values[1]);
+        //System.out.println("Got:" + c + "<<");
+        //System.out.println("Parsed:" + values[2].split("\r")[0] + "<<");
+        int i_max = parseInt(values[2].split("\r")[0]);
+        //System.out.println("Got:" + i_max + "<<");
+        return new Argums(b, c, i_max);
     }
 
     public static long f(long arg, int b, int c) {
         if (arg == 0) return 0;
-        int a = 0;
+        long a = 0;
         for (int i = 1; i < NUMBEROFOPERATIONS; i++) {
-            a += 2 * b + c - i;
+            a += 2 * b + c - arg;
         }
         return f(arg - 1, b, c) + a;
     }
@@ -55,8 +49,9 @@ public class Main {
     public static void main(String[] args) throws ParserConfigurationException, IOException {
         //System.out.println(f(10, 5, 7));
         ReadFile();
-        ParseFile(info);
-        System.in.read();
+        Argums v = ParseFile(info);
+        long result = f(v.i_max, v.b, v.c);
+        System.out.println(result);
     }
 
 }
