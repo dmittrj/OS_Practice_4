@@ -66,10 +66,16 @@ namespace OS_Hub
             writer = new(path + @"\OS_Java\resources\OS_Info.txt");
             writer.WriteLine(b.ToString() + "," + c.ToString() + "," + i_max.ToString());
             writer.Close();
+            writer = new(path + @"\OS_Python\OS_Info.txt");
+            writer.WriteLine(b.ToString() + "," + c.ToString() + "," + i_max.ToString());
+            writer.Close();
             FileInfo fileToDelete = new FileInfo(path + @"\OS_Java\resources\OS_JavaResult.txt");
             if (fileToDelete.Exists)
                 fileToDelete.Delete();
             fileToDelete = new FileInfo(path + @"\OS_Hub\bin\Debug\net5.0\OS_CppResult.txt");
+            if (fileToDelete.Exists)
+                fileToDelete.Delete();
+            fileToDelete = new FileInfo(path + @"\OS_Hub\bin\Debug\net5.0\OS_PythonResult.txt");
             if (fileToDelete.Exists)
                 fileToDelete.Delete();
         }
@@ -99,6 +105,9 @@ namespace OS_Hub
                     break;
                 case OS_Language.Python:
                     Console.WriteLine("Python");
+                    codeFile = new FileInfo(solFolder.FullName + @"\OS_Python\main.exe");
+                    if (codeFile.Exists)
+                        Process.Start(codeFile.FullName);
                     break;
                 case OS_Language.Assembler:
                     Console.WriteLine("Assembler");
@@ -128,6 +137,11 @@ namespace OS_Hub
                 {
                     OS_ParseFile(checks, OS_Language.Java);
                 }
+                checks = new(path + @"\OS_Hub\bin\Debug\net5.0\OS_PythonResult.txt");
+                if (checks.Exists)
+                {
+                    OS_ParseFile(checks, OS_Language.Python);
+                }
                 Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine("  Язык        Результат     Время работы");
@@ -140,14 +154,15 @@ namespace OS_Hub
                 OS_PrintCursor(2);
                 Console.Write(" Java        ");
                 Console.Write(OS_Results[1]);
-                for (int i = 0; i < 14 - OS_Results[0].Length; i++)
+                for (int i = 0; i < 14 - OS_Results[1].Length; i++)
                     Console.Write(" ");
                 Console.WriteLine(OS_Time[1] + " сек.");
                 OS_PrintCursor(3);
                 Console.Write(" Python      ");
                 Console.Write(OS_Results[2]);
-                Console.Write("         ");
-                Console.WriteLine("undef");
+                for (int i = 0; i < 14 - OS_Results[2].Length; i++)
+                    Console.Write(" ");
+                Console.WriteLine(OS_Time[2] + " сек.");
                 OS_PrintCursor(4);
                 Console.Write(" Assembler   ");
                 Console.Write(OS_Results[3]);
