@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31829.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS_Hub", "OS_Hub\OS_Hub.csproj", "{8EDE8BD6-2B1F-49B4-BCA5-1723926A3B60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OS_Hub", "OS_Hub\OS_Hub.csproj", "{8EDE8BD6-2B1F-49B4-BCA5-1723926A3B60}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OS_Cpp", "OS_Cpp\OS_Cpp.vcxproj", "{EF4403D7-9356-4777-8FD6-96F815B888BF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OS_Assembly", "OS_Assembly\OS_Assembly.vcxproj", "{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,16 @@ Global
 		{EF4403D7-9356-4777-8FD6-96F815B888BF}.Release|x64.Build.0 = Release|x64
 		{EF4403D7-9356-4777-8FD6-96F815B888BF}.Release|x86.ActiveCfg = Release|Win32
 		{EF4403D7-9356-4777-8FD6-96F815B888BF}.Release|x86.Build.0 = Release|Win32
+		{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}.Debug|x64.ActiveCfg = Debug|x64
+		{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}.Debug|x64.Build.0 = Debug|x64
+		{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}.Debug|x86.ActiveCfg = Debug|Win32
+		{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}.Debug|x86.Build.0 = Debug|Win32
+		{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}.Release|Any CPU.ActiveCfg = Release|Win32
+		{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}.Release|x64.ActiveCfg = Release|x64
+		{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}.Release|x64.Build.0 = Release|x64
+		{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}.Release|x86.ActiveCfg = Release|Win32
+		{4A71A5CB-7F0F-4945-AAB5-40AF267FE736}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
