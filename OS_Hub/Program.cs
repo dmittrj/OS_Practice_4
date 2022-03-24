@@ -13,7 +13,7 @@ namespace OS_Hub
         private static int i_max;
         private static string path;
         private static int cur_position = 1;
-        private static string[] OS_Results = { "undef", "undef" , "undef" , "undef" };
+        private static string[] OS_Results = { "undef", "undef", "undef", "undef" };
         private static string[] OS_Time = { "undef", "undef", "undef", "undef" };
 
         private static void OS_ParseFile(FileInfo file, OS_Language lang)
@@ -25,18 +25,19 @@ namespace OS_Hub
             OS_Results[(int)lang - 1] = textFromFile.Substring(0, textFromFile.IndexOf(","));
             OS_Time[(int)lang - 1] = textFromFile[(textFromFile.IndexOf(",") + 1)..];
         }
-        
+
         private static void OS_Initial()
         {
             Console.WriteLine("\n Эта программа посчитает вам значение этого выражения:");
             Console.WriteLine("\n f(i + 1) = f(i) + sum[n = 1...10^8](2b + c - n)");
             Console.WriteLine("\n на разных языках программирования\n\n");
-            _OS_b:
+        _OS_b:
             try
             {
                 Console.Write(" Введите значение b > ");
                 b = Int32.Parse(Console.ReadLine());
-            } catch { goto _OS_b; }
+            }
+            catch { goto _OS_b; }
         _OS_c:
             try
             {
@@ -53,7 +54,7 @@ namespace OS_Hub
             catch { goto _OS_imax; }
             path = Directory.GetCurrentDirectory();
             DirectoryInfo info = new(path);
-            while (path != "" && info.Name != "OS_Practice_4" )
+            while (path != "" && info.Name != "OS_Practice_4-master")
             {
                 info = info.Parent;
                 path = info.FullName;
@@ -79,7 +80,7 @@ namespace OS_Hub
             if (fileToDelete.Exists)
                 fileToDelete.Delete();
         }
-        
+
         private static void OS_Calculate(OS_Language lang)
         {
             DirectoryInfo solFolder = new(path);
@@ -111,22 +112,26 @@ namespace OS_Hub
                     break;
                 case OS_Language.Assembler:
                     Console.WriteLine("Assembler");
+                    codeFile = new FileInfo(solFolder.FullName + @"\Debug\OS_Assembly.exe");
+                    if (codeFile.Exists)
+                        Process.Start(codeFile.FullName);
                     break;
                 default:
                     break;
             }
             Console.ReadKey();
         }
-        
+
         private static void OS_PrintCursor(int p)
         {
             if (p == cur_position) Console.Write(">");
             else Console.Write(" ");
         }
-        
+
         private static void OS_PrintTable()
         {
-            while (true) {
+            while (true)
+            {
                 FileInfo checks = new(path + @"\OS_Hub\bin\Debug\net5.0\OS_CppResult.txt");
                 if (checks.Exists)
                 {
@@ -141,6 +146,11 @@ namespace OS_Hub
                 if (checks.Exists)
                 {
                     OS_ParseFile(checks, OS_Language.Python);
+                }
+                checks = new(path + @"\OS_Hub\bin\Debug\net5.0\OS_AssemblerResult.txt");
+                if (checks.Exists)
+                {
+                    OS_ParseFile(checks, OS_Language.Assembler);
                 }
                 Console.Clear();
                 Console.WriteLine();
@@ -166,8 +176,9 @@ namespace OS_Hub
                 OS_PrintCursor(4);
                 Console.Write(" Assembler   ");
                 Console.Write(OS_Results[3]);
-                Console.Write("         ");
-                Console.WriteLine("undef");
+                for (int i = 0; i < 14 - OS_Results[2].Length; i++)
+                    Console.Write(" ");
+                Console.WriteLine(OS_Time[3] + " сек.");
                 ConsoleKey key = Console.ReadKey().Key;
                 switch (key)
                 {
@@ -183,7 +194,7 @@ namespace OS_Hub
                 }
             }
         }
-        
+
         static void Main(string[] args)
         {
             OS_Initial();

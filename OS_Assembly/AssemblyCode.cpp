@@ -11,28 +11,39 @@ long long f(int arg, int b, int c) {
     char curb = (char)b;
     char curc = (char)c;
     short ress;
-
-    __asm {
-        mov Bl, 2
-        mov Dx, 0
-        mov ECX, 30000
-        L1:
-        mov al, curb
-            mul bl
-            Push dx
-            mov dl, curc
-            mov dh, 0
-            add Ax, Dx
-            mov dl, curarg
-            mov dh, 0
-            sub Ax, Dx
-            pop Dx
-            add Dx, Ax
-            Loop L1
-            mov ress, dx
+    long long a = 0;
+    int itter1 = 100000000, itter2 = 1;
+    if (2 * b + c - arg <= 3) {
+        itter1 = 10001;
+        itter2 = 9999;
     }
-    long long a = ress;
-    std::cout << a << std::endl;
+    else {
+        itter1 = 1010101;
+        itter2 = 99;
+    }
+
+    for (int j = 0; j < itter1; j++) {
+        __asm {
+            mov Bl, 2
+            mov Dx, 0
+            mov ECX, itter2
+            L1 :
+            mov al, curb
+                mul bl
+                Push dx
+                mov dl, curc
+                mov dh, 0
+                add Ax, Dx
+                mov dl, curarg
+                mov dh, 0
+                sub Ax, Dx
+                pop Dx
+                add Dx, Ax
+                mov ress, dx
+                Loop L1
+        }
+        a += ress;
+    }
     return f(arg - 1, b, c) + a;
 }
 
@@ -83,53 +94,14 @@ int main()
     std::cout << b << c << i_max << std::endl;
     std::cout << "Начинается подсчёт..." << std::endl;
     clock_t ts = clock();
-    short result = f(i_max, b, c);
+    long long result = f(i_max, b, c);
     time = ((float)(clock() - ts)) / CLOCKS_PER_SEC;
     std::cout << "Результат работы программы на ассемблере:" << std::endl;
     std::cout << "  - Ответ: " << result << std::endl;
     std::cout << "  - Время: " << time << " секунд" << std::endl;
     std::ofstream res;
-    res.open("OS_CppResult.txt", std::ios_base::trunc | std::ios_base::binary);
+    res.open("OS_AssemblerResult.txt", std::ios_base::trunc | std::ios_base::binary);
     res << result << "," << time;
     res.close();
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-/*
-int main() {
-	int a;
-	char b = 4;
-	char c = 5;
-	short f = 1;
-
-	__asm {
-		mov Bl, 2 //начальное значение стартовой переменной
-		mov Dx, 0 //начальное значение переменной, куда будут складываться резы
-		mov ECX, 5 //сколько раз повторится цикл
-		L1:
-		mov al, b //получаем значение b
-			mul bl //сейчас в Ax хранится al * bl
-			Push dx //запоминаем dx
-			mov dl, c //загружаем c в DL
-			mov dh, 0
-			add Ax, Dx //добавляем с к Ах
-			pop Dx
-			add Dx, Ax // Dx += Ax
-			mov al, 2
-			add Bl, Al
-			Loop L1
-			mov f, dx
-	}
-	cout << f;
-}
-*/

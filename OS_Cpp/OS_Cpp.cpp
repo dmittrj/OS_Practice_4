@@ -11,7 +11,6 @@ long long f(long arg, int b, int c) {
     for (int i = 1; i < NUMBEROFOPERATIONS; i++) {
         a += (long long)2 * (long long)b + (long long)c - (long long)arg;
     }
-    std::cout << a << std::endl;
     return f(arg - 1, b, c) + a;
 }
 
