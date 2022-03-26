@@ -19,9 +19,6 @@ public class Main {
     static void ReadFile() throws ParserConfigurationException, IOException {
         OS_File nFile = new OS_File("OS_Info.txt");
         info = nFile.open();
-        //nFile.write();
-        //nFile.read();
-        //nFile.delete();
     }
 
     static void WriteFile(String res, String time) throws IOException {
