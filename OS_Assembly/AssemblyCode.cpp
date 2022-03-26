@@ -84,14 +84,18 @@ int main()
     std::ifstream info;
     info.open("OS_Info.txt", std::ios_base::in);
     char* p = new char[20];
-    if (info.is_open())
+    if (info.is_open()) {
         info >> p;
+    }
+    else {
+        std::cout << "Программа OS_Assembly готова. Вы можете её закрыть\n\n";
+        return 0;
+    }
     info.close();
     int b;
     int c;
     int i_max;
     parsefile(p, b, c, i_max);
-    std::cout << b << c << i_max << std::endl;
     std::cout << "Начинается подсчёт..." << std::endl;
     clock_t ts = clock();
     long long result = f(i_max, b, c);

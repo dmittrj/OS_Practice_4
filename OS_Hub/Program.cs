@@ -54,7 +54,7 @@ namespace OS_Hub
             catch { goto _OS_imax; }
             path = Directory.GetCurrentDirectory();
             DirectoryInfo info = new(path);
-            while (path != "" && info.Name != "OS_Practice_4-master")
+            while (path != "" && info.Name != "OS_Practice_4")
             {
                 info = info.Parent;
                 path = info.FullName;
@@ -70,7 +70,7 @@ namespace OS_Hub
             writer = new(path + @"\OS_Python\OS_Info.txt");
             writer.WriteLine(b.ToString() + "," + c.ToString() + "," + i_max.ToString());
             writer.Close();
-            FileInfo fileToDelete = new FileInfo(path + @"\OS_Java\resources\OS_JavaResult.txt");
+            FileInfo fileToDelete = new(path + @"\OS_Java\resources\OS_JavaResult.txt");
             if (fileToDelete.Exists)
                 fileToDelete.Delete();
             fileToDelete = new FileInfo(path + @"\OS_Hub\bin\Debug\net5.0\OS_CppResult.txt");
@@ -82,6 +82,26 @@ namespace OS_Hub
             fileToDelete = new FileInfo(path + @"\OS_Hub\bin\Debug\net5.0\OS_AssemblerResult.txt");
             if (fileToDelete.Exists)
                 fileToDelete.Delete();
+            fileToDelete = new FileInfo(path + @"\Debug\OS_Cpp.exe");
+            if (!fileToDelete.Exists)
+            {
+                Console.WriteLine("\n\nИзвините, у вас не всё готово для запуска программы :(");
+                Console.WriteLine("Попробуйте сделать следующее:");
+                Console.WriteLine("   1. В VisualStudio справа выберите \"Обозреватель решений\"");
+                Console.WriteLine("   2. Найдите проект \"OS_Cpp\", кликните правой кнопкой > Отладка > Запустить новый экземпляр ");
+                Console.WriteLine("   3. Перезапустите проект OS_Hub\n\n\n");
+                Environment.Exit(0);
+            }
+            fileToDelete = new FileInfo(path + @"\Debug\OS_Assembly.exe");
+            if (!fileToDelete.Exists)
+            {
+                Console.WriteLine("\n\nИзвините, у вас не всё готово для запуска программы :(");
+                Console.WriteLine("Попробуйте сделать следующее:");
+                Console.WriteLine("   1. В VisualStudio справа выберите \"Обозреватель решений\"");
+                Console.WriteLine("   2. Найдите проект \"OS_Assembly\", кликните правой кнопкой > Отладка > Запустить новый экземпляр ");
+                Console.WriteLine("   3. Перезапустите проект OS_Hub\n\n\n");
+                Environment.Exit(0);
+            }
         }
 
         private static void OS_Calculate(OS_Language lang)
@@ -92,7 +112,6 @@ namespace OS_Hub
             {
                 case OS_Language.CPlusPlus:
                     Console.WriteLine("\n\nНачинается выполнение программы на языке C++");
-                    Console.WriteLine(solFolder.FullName + @"\Debug\OS_Cpp.exe");
                     codeFile = new FileInfo(solFolder.FullName + @"\Debug\OS_Cpp.exe");
                     if (codeFile.Exists)
                         Process.Start(codeFile.FullName);
