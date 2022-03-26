@@ -79,6 +79,9 @@ namespace OS_Hub
             fileToDelete = new FileInfo(path + @"\OS_Hub\bin\Debug\net5.0\OS_PythonResult.txt");
             if (fileToDelete.Exists)
                 fileToDelete.Delete();
+            fileToDelete = new FileInfo(path + @"\OS_Hub\bin\Debug\net5.0\OS_AssemblerResult.txt");
+            if (fileToDelete.Exists)
+                fileToDelete.Delete();
         }
 
         private static void OS_Calculate(OS_Language lang)
