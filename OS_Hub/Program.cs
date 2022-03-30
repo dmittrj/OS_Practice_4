@@ -54,7 +54,7 @@ namespace OS_Hub
             catch { goto _OS_imax; }
             path = Directory.GetCurrentDirectory();
             DirectoryInfo info = new(path);
-            while (path != "" && (info.Name != "OS_Practice_4" || info.Name != "OS_Practice_4-master"))
+            while (path != "" && (info.Name != "OS_Practice_4" && info.Name != "OS_Practice_4-master"))
             {
                 info = info.Parent;
                 path = info.FullName;
